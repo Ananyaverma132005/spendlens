@@ -27,10 +27,4 @@ To get this project running on your own machine, follow these steps.
 * You must have **Python 3** installed.
 * It's highly recommended to use a **virtual environment**.
 
-### 2. Clone the Repository
 
-First, clone this repository to your local machine:
-
-```sh
-git clone [https://github.com/SurajMhrn/Spendlens_Capstone_1.git](https://github.com/SurajMhrn/Spendlens_Capstone_1.git)
-cd Spendlens_Capstone_1
