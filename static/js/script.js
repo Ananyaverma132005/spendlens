@@ -633,8 +633,10 @@ async function initializeApp(){
   const dataLoaded = await loadData();
   
   if(!isMobile()) openSidebarStatic();
-  
-  switchView('home'); 
+
+  // Open the view named in the URL hash (e.g. /#dashboard), defaulting to home.
+  const hashView = window.location.hash.slice(1);
+  switchView(hashView && document.getElementById(hashView + '-view') ? hashView : 'home');
   updateHomeSummary();
   if(expenseDateInput) expenseDateInput.value = new Date().toISOString().split('T')[0];
   const now = new Date(); if(budgetMonthInput) budgetMonthInput.value = formatMonthLabel(now);
@@ -1042,7 +1044,9 @@ function populateDashboard(typeFilter, timeFilter){
 function updateCharts(data){
   const trendCanvas=document.getElementById('spending-trend-chart'); const catCanvas=document.getElementById('categories-chart'); if(!trendCanvas||!catCanvas) return;
   const trendCtx=trendCanvas.getContext('2d'); if(spendingTrendChart) spendingTrendChart.destroy();
-  const sorted=[...data].sort((a,b)=> new Date(a.date)-new Date(a.date)); const labels=sorted.map(e=>e.date); const values=sorted.map(e=>Number(e.amount||0));
+  // Total spending per day, in date order.
+  const dailyTotals={}; data.forEach(e=>{ dailyTotals[e.date]=(dailyTotals[e.date]||0)+Number(e.amount||0); });
+  const labels=Object.keys(dailyTotals).sort(); const values=labels.map(d=>dailyTotals[d]);
   spendingTrendChart=new Chart(trendCtx,{ type:'line', data:{ labels: labels.length?labels:['No data'], datasets:[{ label:'Spending', data:values, borderColor:'#18BC9C', backgroundColor:'rgba(24,188,156,.1)', fill:true, tension:.4 }]}, options:{ responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true } } } });
   const catCtx=catCanvas.getContext('2d'); const categoryData=data.reduce((acc,e)=>{ acc[e.cat]=(acc[e.cat]||0)+Number(e.amount||0); return acc; },{});
   if(categoriesChart) categoriesChart.destroy();

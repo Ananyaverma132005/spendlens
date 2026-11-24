@@ -1,0 +1,13 @@
+# One-click deploy on Render (free plan).
+# The free plan's disk is temporary, so the demo starts with sample data
+# every time the service boots.
+services:
+  - type: web
+    name: spendlens
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python scripts/seed_demo.py && gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
