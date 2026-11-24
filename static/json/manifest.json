@@ -1,0 +1,17 @@
+{
+  "name": "SpendLens",
+  "short_name": "SpendLens",
+  "description": "Track and manage your expenses easily.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "/static/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -19,4 +19,7 @@ __pycache__/
 # SQLite Database - DO NOT DEPLOY
 *.db
 *.db-journal
-schema.sql
+
+# Virtual environment
+venv/
+.venv/

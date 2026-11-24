@@ -21,8 +21,7 @@
 <script>
   // Service worker logic remains client-side
   if ('serviceWorker' in navigator) {
-    // FIX: Replaced Flask 'url_for' with a root-relative path to fix the protocol error
-    navigator.serviceWorker.register("/static/js/service-worker.js");
+    navigator.serviceWorker.register("/service-worker.js");
   }
 </script>
 

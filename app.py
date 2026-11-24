@@ -1,6 +1,7 @@
+import os
 import sqlite3
 import json
-from flask import Flask, render_template, request, jsonify, g
+from flask import Flask, render_template, request, jsonify, g, send_from_directory
 
 app = Flask(__name__)
 DATABASE = 'spendlens.db'
@@ -31,11 +32,9 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
-# --- Database Schema (schema.sql) ---
-# We'll create a separate file for the schema
-# This function is here to show what init_db needs.
-# You will need to create a 'schema.sql' file with the content
-# I'll provide in the README.
+# Create the database automatically on first run.
+if not os.path.exists(DATABASE):
+    init_db()
 
 @app.cli.command('init-db')
 def init_db_command():
@@ -49,6 +48,12 @@ def init_db_command():
 def index():
     """Serve the main index.html file from the 'templates' folder."""
     return render_template('index.html')
+
+@app.route('/service-worker.js')
+def service_worker():
+    """Serve the service worker from the root so it controls the whole app."""
+    return send_from_directory(os.path.join(app.static_folder, 'js'), 'service-worker.js',
+                               mimetype='application/javascript')
 
 # --- API Endpoints ---
 
