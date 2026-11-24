@@ -1,11 +1,3 @@
-/*
- * SpendLens static demo backend.
- *
- * The GitHub Pages build has no Flask server, so this file stands in for the
- * REST API in app.py. It intercepts fetch() calls to /api/*, mirrors the
- * same endpoints and responses, and stores data in the visitor's
- * localStorage. Each visitor gets their own copy, seeded with sample data.
- */
 (function () {
   'use strict';
 
