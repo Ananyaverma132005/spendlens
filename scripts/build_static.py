@@ -7,6 +7,7 @@ the site works from https://<user>.github.io/spendlens/.
 Usage:
     python scripts/build_static.py
 """
+import hashlib
 import json
 import os
 import shutil
@@ -31,6 +32,12 @@ def main():
     )
     if 'demo-api.js' not in html:
         raise SystemExit('Could not inject demo-api.js into index.html')
+
+    # Version asset URLs by content so browsers pick up new builds immediately.
+    for asset in ('static/css/style.css', 'static/js/demo-api.js', 'static/js/script.js'):
+        with open(os.path.join(OUT, asset), 'rb') as f:
+            version = hashlib.sha1(f.read()).hexdigest()[:10]
+        html = html.replace(f'"{asset}"', f'"{asset}?v={version}"')
 
     with open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(html)
