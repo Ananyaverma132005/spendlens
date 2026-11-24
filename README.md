@@ -7,7 +7,8 @@
 **A full-stack expense tracker you can install as an app (PWA), with budgets, income tracking, spending charts and bill photos.**
 
 <!-- LIVE_DEMO_START -->
-<!-- The live demo link will go here after deployment. -->
+### [▶ Live demo](https://ananyaverma132005.github.io/spendlens/)
+<sub>Runs fully in your browser with sample data. Changes are saved locally, and you can reset them anytime.</sub>
 <!-- LIVE_DEMO_END -->
 
 [![Tests](https://github.com/Ananyaverma132005/spendlens/actions/workflows/tests.yml/badge.svg)](https://github.com/Ananyaverma132005/spendlens/actions/workflows/tests.yml)
@@ -61,7 +62,7 @@ SpendLens helps you see where your money goes each month. You log expenses, set 
 | Frontend | HTML5, CSS3, vanilla JavaScript, Chart.js, Font Awesome |
 | PWA | Web App Manifest, Service Worker |
 | Quality | pytest (17 API tests), GitHub Actions CI on Python 3.10–3.12 |
-| Hosting | Render (blueprint in `render.yaml`) |
+| Hosting | GitHub Pages (live demo), Render (full stack, `render.yaml`) |
 
 ## Architecture
 
@@ -116,7 +117,11 @@ The tests cover every endpoint, input validation and error cases. Each test runs
 
 ## Deployment
 
-The repo includes a [Render](https://render.com) blueprint (`render.yaml`):
+**Live demo (GitHub Pages).** `.github/workflows/pages.yml` runs `scripts/build_static.py` on every push. The
+build serves the same UI with `static/js/demo-api.js`, a browser-side version of the REST API (same endpoints,
+validation and responses) backed by `localStorage`, so the demo works with no server.
+
+**Full stack (Render).** The repo also includes a [Render](https://render.com) blueprint (`render.yaml`):
 
 1. Sign in to Render with GitHub, then choose **New → Blueprint** and select this repository.
 2. Render builds and starts the app on its free plan.
